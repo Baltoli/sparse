@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(Sparse)
+project(Sparse LANGUAGES CXX)
 
 include(GNUInstallDirs)
 add_subdirectory(src)

@@ -1,5 +1,7 @@
 add_library(sparse
-  src/sparse.cpp
+  src/CSR.cpp
+  src/DOK.cpp
+  src/index.cpp
 )
 
 target_include_directories(sparse PUBLIC
