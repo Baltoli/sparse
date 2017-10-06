@@ -5,15 +5,15 @@
 int main()
 {
   DOKMatrix d{
-    {{0, 0}, 0.2},
-    {{1, 0}, 1.0},
-    {{1, 5}, 3.11},
-    {{3, 2}, 54.2}
+    {{1, 0}, 5},
+    {{1, 1}, 8},
+    {{2, 2}, 3},
+    {{3, 1}, 6},
+    {{3, 3}, 0}
   };
 
-  std::cout << d.rows() << " rows\n";
-  std::cout << d.columns() << " columns" << std::endl;
-
+  CSRMatrix c(d);
+  std::cout << c.repr() << '\n';
   std::cout << d.repr();
   return 0;
 }

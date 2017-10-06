@@ -22,6 +22,24 @@ size_t DOKMatrix::columns() const
   )->first.col + 1;
 }
 
+size_t DOKMatrix::count() const
+{
+  return std::count_if(std::begin(entries_), std::end(entries_),
+    [](auto a) {
+      return a.second != 0;
+    }
+  );
+}
+
+size_t DOKMatrix::non_zero_in_row(size_t row) const
+{
+  return std::count_if(std::begin(entries_), std::end(entries_),
+    [row](auto a) {
+      return a.first.row == row;
+    }
+  );
+}
+
 double DOKMatrix::operator[](Index i) const
 {
   auto v = entries_.find(i);
