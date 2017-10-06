@@ -15,7 +15,7 @@ int main()
   std::cout << c.repr() << '\n';
   std::cout << d.repr();
 
-  std::vector<double> v{3, 2.2, 0.1};
+  std::vector<double> v{0, 0, 5};
   auto p = c.mul(v);
   for(auto pe : p) {
     std::cout << pe << " ";

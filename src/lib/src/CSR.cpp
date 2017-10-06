@@ -42,12 +42,25 @@ std::vector<double> CSRMatrix::mul(std::vector<double> v) const
   assert(v.size() == IA.size() - 1 && "Incorrect vector size");
   std::vector<double> o(v.size(), 0);  
 
-  for(auto i = 0; i < v.size(); ++i) {
-    auto ex = extent(i);
+  // loop bounds are fixed; exactly one iteration through the entire input
+  // vector, element by element. Upper and lower bounds are independent of the
+  // iteration variable
+  for(auto i = 0; i < o.size(); ++i) {
+    // Two memory accesses to adjacent items in the same array determine the
+    // row extent
+    auto lower = IA[i];
+    auto upper = IA[i+1];
+
+    // Variable tracks the running sum for this output element
     double sum = 0.0;
-    for(auto j = ex.first; j < ex.second; ++j) {
+
+    // fixed loop bounds from the accesses earlier
+    for(auto j = lower; j < upper; ++j) {
+      // Addition to running total, access pattern
       sum += A[j] * v[JA[j]];
     }
+
+    // Store to the ith element of the output
     o[i] = sum;
   }
 
