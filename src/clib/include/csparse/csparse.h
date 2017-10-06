@@ -30,4 +30,6 @@ void free_sparse_mat(sparse_mat *m);
 
 void print_sparse_mat(sparse_mat *m);
 
+void sparse_mul(sparse_mat *m, double *v, double *o);
+
 #endif

@@ -102,6 +102,20 @@ void free_sparse_mat(sparse_mat *m)
   }
 }
 
+void sparse_mul(sparse_mat *m, double *v, double *o)
+{
+  for(size_t i = 0; i < m->rows; ++i) {
+    size_t lower = m->IA[i];
+    size_t upper = m->IA[i+1];
+
+    double sum = 0;
+    for(size_t j = lower; j < upper; ++j) {
+      sum += m->A[j] * v[m->JA[j]];
+    }
+    o[i] = sum;
+  }
+}
+
 void print_sparse_mat(sparse_mat *m)
 {
   size_t nnz = m->IA[m->rows];
