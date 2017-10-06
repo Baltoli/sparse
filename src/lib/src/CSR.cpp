@@ -20,6 +20,22 @@ CSRMatrix::CSRMatrix(DOKMatrix d)
   }
 }
 
+std::pair<size_t, size_t> CSRMatrix::extent(size_t i) const
+{
+  return { IA[i], IA[i+1] };
+}
+
+std::vector<double> CSRMatrix::row(size_t i) const
+{
+  std::vector<double> r(IA.size() - 1, 0);
+  auto ex = extent(i);
+  for(auto i = ex.first; i < ex.second; ++i) {
+    r[JA[i]] = A[i];
+  }
+
+  return r;
+}
+
 std::string CSRMatrix::repr() const
 {
   std::stringstream ss;

@@ -9,6 +9,9 @@ class CSRMatrix {
 public:
   CSRMatrix(DOKMatrix d);
 
+  std::pair<size_t, size_t> extent(size_t i) const;
+  std::vector<double> row(size_t i) const;
+
   std::string repr() const;
 private:
   std::vector<double> A;

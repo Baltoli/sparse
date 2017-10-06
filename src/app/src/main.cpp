@@ -14,6 +14,14 @@ int main()
 
   CSRMatrix c(d);
   std::cout << c.repr() << '\n';
+  for(auto i = 0; i < 4; ++i) {
+    std::cout << c.extent(i).first << ", " << c.extent(i).second << '\n';
+  }
   std::cout << d.repr();
+
+  for(auto e : c.row(3)) {
+    std::cout << e << ' ';
+  }
+  std::cout << '\n';
   return 0;
 }
