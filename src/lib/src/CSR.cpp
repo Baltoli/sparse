@@ -1,12 +1,13 @@
 #include <CSR.h>
 
+#include <cassert>
 #include <sstream>
 
 CSRMatrix::CSRMatrix(DOKMatrix d)
 {
   size_t nnz = d.count();
   A.reserve(nnz);
-  IA.reserve(d.rows());
+  IA.reserve(d.rows() + 1);
   JA.reserve(nnz);
 
   for(auto i : d) {
@@ -34,6 +35,23 @@ std::vector<double> CSRMatrix::row(size_t i) const
   }
 
   return r;
+}
+
+std::vector<double> CSRMatrix::mul(std::vector<double> v) const
+{
+  assert(v.size() == IA.size() - 1 && "Incorrect vector size");
+  std::vector<double> o(v.size(), 0);  
+
+  for(auto i = 0; i < v.size(); ++i) {
+    auto ex = extent(i);
+    double sum = 0.0;
+    for(auto j = ex.first; j < ex.second; ++j) {
+      sum += A[j] * v[JA[j]];
+    }
+    o[i] = sum;
+  }
+
+  return o;
 }
 
 std::string CSRMatrix::repr() const

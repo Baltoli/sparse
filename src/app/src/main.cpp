@@ -5,23 +5,22 @@
 int main()
 {
   DOKMatrix d{
-    {{1, 0}, 5},
-    {{1, 1}, 8},
-    {{2, 2}, 3},
-    {{3, 1}, 6},
-    {{3, 3}, 0}
+    {{1, 1}, 1},
+    {{2, 0}, 1},
+    {{2, 1}, 2},
+    {{2, 2}, 1},
   };
 
   CSRMatrix c(d);
   std::cout << c.repr() << '\n';
-  for(auto i = 0; i < 4; ++i) {
-    std::cout << c.extent(i).first << ", " << c.extent(i).second << '\n';
-  }
   std::cout << d.repr();
 
-  for(auto e : c.row(3)) {
-    std::cout << e << ' ';
+  std::vector<double> v{3, 2.2, 0.1};
+  auto p = c.mul(v);
+  for(auto pe : p) {
+    std::cout << pe << " ";
   }
   std::cout << '\n';
+
   return 0;
 }
